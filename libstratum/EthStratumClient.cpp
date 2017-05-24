@@ -394,7 +394,12 @@ void EthStratumClient::processReponse(Json::Value& responseObject)
 					{
 						cnote << "Received new job #" + job;
 
+            cnote << "Computing seedHash";
+
 						h256 seedHash = h256(sSeedHash);
+
+            cnote << "Computing headerHash";
+
 						h256 headerHash = h256(sHeaderHash);
 
 						m_previous.headerHash = m_current.headerHash;
@@ -404,7 +409,7 @@ void EthStratumClient::processReponse(Json::Value& responseObject)
 						m_previous.exSizeBits = m_previous.exSizeBits;
 						m_previousJob = m_job;
 
-						m_current.headerHash = h256(sHeaderHash);
+						m_current.headerHash = headerHash;
 						m_current.seedHash = seedHash;
 						m_current.boundary = h256();
 						diffToTarget((uint32_t*)m_current.boundary.data(), m_nextWorkDifficulty);
