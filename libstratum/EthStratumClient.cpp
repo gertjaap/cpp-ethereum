@@ -387,12 +387,12 @@ void EthStratumClient::processReponse(Json::Value& responseObject)
 
 				if (m_protocol == STRATUM_PROTOCOL_ETHEREUMSTRATUM)
 				{
-					string sSeedHash = params.get((Json::Value::ArrayIndex)1, "").asString();
+					/*string sSeedHash = params.get((Json::Value::ArrayIndex)1, "").asString();
 					string sHeaderHash = params.get((Json::Value::ArrayIndex)2, "").asString();
 
 					if (sHeaderHash != "" && sSeedHash != "")
 					{
-						cnote << "Received new job #" + job;
+						cnote << "Received new job with  #" + job;
 
             cnote << "Computing seedHash";
 
@@ -418,10 +418,12 @@ void EthStratumClient::processReponse(Json::Value& responseObject)
 						m_job = job;
             cnote << "Setting farm to work on job";
 						p_farm->setWork(m_current);
-					}
+					}*/
 				}
 				else
 				{
+          cnote << "Protocol is not STRATUM_PROTOCOL_ETHEREUMSTRATUM";
+
 					string sHeaderHash = params.get((Json::Value::ArrayIndex)index++, "").asString();
 					string sSeedHash = params.get((Json::Value::ArrayIndex)index++, "").asString();
 					string sShareTarget = params.get((Json::Value::ArrayIndex)index++, "").asString();
