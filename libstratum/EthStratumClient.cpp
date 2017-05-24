@@ -422,9 +422,7 @@ void EthStratumClient::processReponse(Json::Value& responseObject)
 				}
 				else
 				{
-          cnote << "Protocol is not STRATUM_PROTOCOL_ETHEREUMSTRATUM";
-
-					string sHeaderHash = params.get((Json::Value::ArrayIndex)index++, "").asString();
+          string sHeaderHash = params.get((Json::Value::ArrayIndex)index++, "").asString();
 					string sSeedHash = params.get((Json::Value::ArrayIndex)index++, "").asString();
 					string sShareTarget = params.get((Json::Value::ArrayIndex)index++, "").asString();
 
@@ -452,11 +450,12 @@ void EthStratumClient::processReponse(Json::Value& responseObject)
 							m_previous.boundary = m_current.boundary;
 							m_previousJob = m_job;
 
-							m_current.headerHash = h256(sHeaderHash);
+							m_current.headerHash = headerHash;
 							m_current.seedHash = seedHash;
 							m_current.boundary = h256(sShareTarget);
 							m_job = job;
 
+              cnote << "Setting farm to work on job #" + job.substr(0, 8);
 							p_farm->setWork(m_current);
 							//x_current.unlock();
 							p_worktimer = new boost::asio::deadline_timer(m_io_service, boost::posix_time::seconds(m_worktimeout));
